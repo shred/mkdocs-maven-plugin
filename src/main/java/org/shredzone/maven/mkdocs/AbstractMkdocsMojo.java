@@ -103,9 +103,10 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
         }
 
         try {
-            Process proc = new ProcessBuilder(args)
-                    .directory(basedir)
-                    .start();
+            ProcessBuilder pb = new ProcessBuilder(args)
+                    .directory(basedir);
+            pb.environment().put("NO_COLOR", "1");
+            Process proc = pb.start();
 
             MkdocsLogger logger = new MkdocsLogger(getLog());
 
