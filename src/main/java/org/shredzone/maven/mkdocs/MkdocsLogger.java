@@ -24,10 +24,9 @@ import org.apache.maven.plugin.logging.Log;
  * Logs mkdocs output into the correct maven log level.
  */
 public class MkdocsLogger {
-    private static final Pattern LOG_PATTERN = Pattern.compile("^(DEBUG|INFO|WARNING|ERROR)\\s+-\\s+(.*)$");
+    private static final Pattern LOG_PATTERN = Pattern.compile("^(Traceback|DEBUG|INFO|WARNING|ERROR)\\s+-\\s+(.*)$");
 
     private final Log log;
-    private String lastLevel;
 
     /**
      * Creates a new {@link MkdocsLogger}.
@@ -47,18 +46,15 @@ public class MkdocsLogger {
      */
     public void log(String line) {
         String message = line;
+        String level = "INFO";
 
-        if (line.startsWith("Traceback")) {
-            lastLevel = "TRACEBACK";
-        } else {
-            Matcher m = LOG_PATTERN.matcher(line);
-            if (m.matches()) {
-                lastLevel = m.group(1);
-                message = m.group(2);
-            }
+        Matcher m = LOG_PATTERN.matcher(line);
+        if (m.matches()) {
+            level = m.group(1);
+            message = m.group(2);
         }
 
-        switch (lastLevel) {
+        switch (level) {
             case "DEBUG":
                 log.debug(message);
                 break;
