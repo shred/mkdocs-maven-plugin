@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.shredzone.maven</groupId>
     <artifactId>mkdocs-maven-plugin</artifactId>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>Shredzone Maven Plugin: mkdocs</name>
     <description>mkdocs maven plugin</description>
@@ -19,7 +19,7 @@
         <url>https://github.com/shred/mkdocs-maven-plugin/</url>
         <connection>scm:git:git@github.com:shred/mkdocs-maven-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:shred/mkdocs-maven-plugin.git</developerConnection>
-        <tag>v1.1</tag>
+        <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>GitHub Issues</system>
