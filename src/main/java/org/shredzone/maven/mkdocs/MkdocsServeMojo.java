@@ -67,8 +67,8 @@ public class MkdocsServeMojo extends AbstractMkdocsMojo {
 
     @Override
     protected void perform() throws IOException {
-        List<String> args = new ArrayList<>();
-        args.add(mkdocsPath);
+        final List<String> args = new ArrayList<>();
+
         args.add("serve");
 
         if (getLog().isDebugEnabled()) {
@@ -86,9 +86,10 @@ public class MkdocsServeMojo extends AbstractMkdocsMojo {
         }
 
         if (host != null || port != null) {
-            String addr = (host != null ? host : "localhost")
+            final String addr = (host != null ? host : "localhost")
                     + ":"
                     + (port != null ? port : 8000);
+
             args.add("--dev-addr");
             args.add(addr);
         }

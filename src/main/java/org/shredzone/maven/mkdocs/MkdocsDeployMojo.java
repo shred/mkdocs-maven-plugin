@@ -63,8 +63,8 @@ public class MkdocsDeployMojo extends AbstractMkdocsMojo {
 
     @Override
     protected void perform() throws IOException {
-        List<String> args = new ArrayList<>();
-        args.add(mkdocsPath);
+        final List<String> args = new ArrayList<>();
+
         args.add("gh-deploy");
 
         if (getLog().isDebugEnabled()) {

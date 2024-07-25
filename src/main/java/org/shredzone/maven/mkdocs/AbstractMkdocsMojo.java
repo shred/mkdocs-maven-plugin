@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -98,13 +100,20 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
      *         Base directory
      */
     protected void invokeMkdocs(List<String> args, File basedir) throws IOException {
+        final String[] mkdocsPathArgs =  mkdocsPath.split("\\s+");
+        final List<String> processArgs = new ArrayList<>();
+
+        processArgs.addAll(Arrays.asList(mkdocsPathArgs));
+        processArgs.addAll(args);
+
         if (getLog().isDebugEnabled()) {
-            getLog().debug(args.stream().collect(joining("' '", "'", "'")));
+            getLog().debug(processArgs.stream().collect(joining("' '", "'", "'")));
         }
 
         try {
-            ProcessBuilder pb = new ProcessBuilder(args)
+            ProcessBuilder pb = new ProcessBuilder(processArgs)
                     .directory(basedir);
+
             pb.environment().put("NO_COLOR", "1");
             Process proc = pb.start();
 
