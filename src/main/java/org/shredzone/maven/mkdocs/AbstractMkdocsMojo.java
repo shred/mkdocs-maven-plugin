@@ -64,6 +64,9 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
     @Parameter(property = "mkdocs.toolPath", defaultValue = "mkdocs")
     protected String mkdocsPath;
 
+    /**
+     * The environment variables to be used when invoking mkdocs.
+     */
     @Parameter(property = "mkdocs.environment")
     protected Map<String, String> environmentVars;
 
