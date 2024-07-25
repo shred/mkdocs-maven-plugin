@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -62,6 +63,9 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
      */
     @Parameter(property = "mkdocs.toolPath", defaultValue = "mkdocs")
     protected String mkdocsPath;
+
+    @Parameter(property = "mkdocs.environment")
+    protected Map<String, String> environmentVars;
 
     /**
      * Performs the mkdocs goal.
@@ -113,6 +117,10 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
         try {
             ProcessBuilder pb = new ProcessBuilder(processArgs)
                     .directory(basedir);
+
+            if (environmentVars != null) {
+                pb.environment().putAll(environmentVars);
+            }
 
             pb.environment().put("NO_COLOR", "1");
             Process proc = pb.start();
