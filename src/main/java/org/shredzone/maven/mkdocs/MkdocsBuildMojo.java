@@ -62,8 +62,8 @@ public class MkdocsBuildMojo extends AbstractMkdocsMojo {
 
     @Override
     protected void perform() throws IOException {
-        List<String> args = new ArrayList<>();
-        args.add(mkdocsPath);
+        final List<String> args = new ArrayList<>();
+
         args.add("build");
 
         if (getLog().isDebugEnabled()) {

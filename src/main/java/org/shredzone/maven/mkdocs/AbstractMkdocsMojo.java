@@ -23,7 +23,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -62,6 +65,12 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
     protected String mkdocsPath;
 
     /**
+     * The environment variables to be used when invoking mkdocs.
+     */
+    @Parameter(property = "mkdocs.environment")
+    protected Map<String, String> environmentVars;
+
+    /**
      * Performs the mkdocs goal.
      * <p>
      * Override this method instead of {@link AbstractMojo#execute()}.
@@ -98,13 +107,24 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
      *         Base directory
      */
     protected void invokeMkdocs(List<String> args, File basedir) throws IOException {
+        final String[] mkdocsPathArgs =  mkdocsPath.split("\\s+");
+        final List<String> processArgs = new ArrayList<>();
+
+        processArgs.addAll(Arrays.asList(mkdocsPathArgs));
+        processArgs.addAll(args);
+
         if (getLog().isDebugEnabled()) {
-            getLog().debug(args.stream().collect(joining("' '", "'", "'")));
+            getLog().debug(processArgs.stream().collect(joining("' '", "'", "'")));
         }
 
         try {
-            ProcessBuilder pb = new ProcessBuilder(args)
+            ProcessBuilder pb = new ProcessBuilder(processArgs)
                     .directory(basedir);
+
+            if (environmentVars != null) {
+                pb.environment().putAll(environmentVars);
+            }
+
             pb.environment().put("NO_COLOR", "1");
             Process proc = pb.start();
 
