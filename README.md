@@ -16,6 +16,10 @@ This plugin offers three goals. All of them have these configuration options in 
 
 * `mkdocsPath` (Property: `mkdocs.toolPath`): The location of the `mkdocs` tool that is to be executed. By default, it uses the first `mkdocs` command in your system path.
 
+* `mkdocsCommand` (Property: `mkdocs.toolCommand`): Used as an alternative to `mkdocsPath`, it contains a list of `<arg>` options for the full `mkdocs` command and extra parameters. This can be used e.g. if mkdocs is to be run directly in Python. If set, `mkdocsPath` is ignored. 
+
+* `environmentVars` (Property: `mkdocs.environment`): An optional map of environment variables to be set before running mkdocs.
+
 All configuration parameters are optional.
 
 ### `mkdocs:build`

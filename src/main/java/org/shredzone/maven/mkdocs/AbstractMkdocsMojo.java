@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -62,6 +63,13 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
      */
     @Parameter(property = "mkdocs.toolPath", defaultValue = "mkdocs")
     protected String mkdocsPath;
+
+    /**
+     * The {@code mkdocs} command to be used, including extra parameters. By default,
+     * the {@code mkdocsPath} property is used.
+     */
+    @Parameter(property = "mkdocs.toolCommand")
+    protected List<String> mkdocsCommand;
 
     /**
      * The environment variables to be used when invoking mkdocs.
@@ -107,23 +115,33 @@ public abstract class AbstractMkdocsMojo extends AbstractMojo {
      */
     protected void invokeMkdocs(List<String> args, File basedir) throws IOException {
         List<String> processArgs = new ArrayList<>();
+        Map<String, String> envArgs = new TreeMap<>();
 
-        processArgs.add(mkdocsPath);
+        envArgs.put("NO_COLOR", "1");
+        if (environmentVars != null) {
+            envArgs.putAll(environmentVars);
+        }
+
+        if (mkdocsCommand != null && !mkdocsCommand.isEmpty()) {
+            processArgs.addAll(mkdocsCommand);
+        } else {
+            processArgs.add(mkdocsPath);
+        }
         processArgs.addAll(args);
 
         if (getLog().isDebugEnabled()) {
             getLog().debug(processArgs.stream().collect(joining("' '", "'", "'")));
+            getLog().debug("ENV: " + envArgs.entrySet().stream()
+                    .map(it -> it.getKey() + "=" + it.getValue())
+                    .collect(joining(", ")));
         }
 
         try {
             ProcessBuilder pb = new ProcessBuilder(processArgs)
                     .directory(basedir);
 
-            if (environmentVars != null) {
-                pb.environment().putAll(environmentVars);
-            }
+            pb.environment().putAll(envArgs);
 
-            pb.environment().put("NO_COLOR", "1");
             Process proc = pb.start();
 
             MkdocsLogger logger = new MkdocsLogger(getLog());
