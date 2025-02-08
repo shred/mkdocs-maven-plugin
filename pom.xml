@@ -16,14 +16,14 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/shred/mkdocs-maven-plugin/</url>
-        <connection>scm:git:git@github.com:shred/mkdocs-maven-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:shred/mkdocs-maven-plugin.git</developerConnection>
+        <url>https://codeberg.org/shred/mkdocs-maven-plugin/</url>
+        <connection>scm:git:git@codeberg.org:shred/mkdocs-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@codeberg.org:shred/mkdocs-maven-plugin.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/shred/mkdocs-maven-plugin/issues</url>
+        <system>Codeberg Issues</system>
+        <url>https://codeberg.org/shred/mkdocs-maven-plugin/issues</url>
     </issueManagement>
     <developers>
         <developer>

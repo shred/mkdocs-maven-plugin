@@ -2,7 +2,7 @@
  * mkdocs-maven-plugin
  *
  * Copyright (C) 2019 Richard "Shred" Körber
- *   https://github.com/shred/mkdocs-maven-plugin
+ *   https://codeberg.org/shred/mkdocs-maven-plugin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as

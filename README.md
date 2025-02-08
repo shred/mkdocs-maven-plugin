@@ -84,8 +84,8 @@ Just add these lines to your `pom.xml` and insert the correct version number.
 
 ## Contribute
 
-* Fork the [Source code at GitHub](https://github.com/shred/mkdocs-maven-plugin). Feel free to send pull requests.
-* Found a bug? [File a bug report!](https://github.com/shred/mkdocs-maven-plugin/issues)
+* Fork the [Source code at Codeberg](https://codeberg.org/shred/mkdocs-maven-plugin). Feel free to send pull requests.
+* Found a bug? [File a bug report!](https://codeberg.org/shred/mkdocs-maven-plugin/issues)
 
 ## License
 
